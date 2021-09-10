@@ -1,6 +1,4 @@
-const groceriesGet = sessionStorage.getItem('groceries');
-const groceriesLogical = groceriesGet || '[]';
-const groceries = JSON.parse(groceriesLogical);
+let groceries = [];
 
 const ajax = function(method, url, data, callback){
   const xhrObject = new XMLHttpRequest();
@@ -43,7 +41,7 @@ const groceriesCreate = function(form) {
 
 const groceriesRead = function() {
   const successFunction = function(reponse) {
-    const groceries = reponse.data;
+    groceries = reponse.data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
     const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
@@ -54,12 +52,11 @@ const groceriesRead = function() {
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
       const groceriesEnterObject = document.getElementsByClassName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
-      // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
       groceriesNameObject.innerHTML = groceries[key].name;
       groceriesEnterObject.innerHTML = groceries[key].enter;
       groceriesExpireObject.value = groceries[key].expire;
-      // groceriesUpdateObject.index = index;
+      groceriesExpireObject.key = key;
       groceriesDeleteObject.key = key;
       index += 1;
     }
@@ -89,13 +86,12 @@ const groceriesDelete = function(key) {
 };
 
 
-const groceriesUpdate = function(index) {
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + index;
-  const name = document.getElementsByName('groceries-name')[index].value;
-  const age = document.getElementsByName('groceries-age')[index].value;
+const groceriesUpdate = function(event, key) {
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + key + '.json';
   const grocery = {
-    name: name,
-    age: age
+    name: groceries[key].name,
+    enter: groceries[key].enter,
+    expire: event.target.value
   }
 
   axios.patch(url, grocery)

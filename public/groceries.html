@@ -84,7 +84,7 @@
                 <td><input type="checkbox" onchange="" /></td>
                 <td name="groceries-name"></td>
                 <td class="groceries-enter"></td>
-                <td class="td-expire"><input type="date" name="groceries-expire" onchange="" /></td>
+                <td class="td-expire"><input type="date" name="groceries-expire" onchange="groceriesUpdate(event, key)" /></td>
                 <td class="td-delete">
                   <button class="button-delete" name="groceries-delete" onclick="groceriesDelete(key)"><span class="material-icons">delete</span></button>
                 </td>
