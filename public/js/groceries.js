@@ -43,27 +43,27 @@ const groceriesCreate = function(form) {
 
 const groceriesRead = function() {
   const successFunction = function(reponse) {
-    const groceries = reponse.data.groceries;
-    const tagDivParent = document.getElementById('tag-div-parent');
-    const tagDivChild = document.getElementById('tag-div-child');
+    const groceries = reponse.data;
+    const tagDivParent = document.getElementById('tag-tbody-parent');
+    const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
     for (let index in groceries) {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
-      const groceriesNameObject = document.getElementsByName('groceries-name')[index];
-      const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
-      const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
-      const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
-      groceriesNameObject.value = groceries[index].name;
-      groceriesAgeObject.value = groceries[index].age;
-      groceriesUpdateObject.index = index;
-      groceriesDeleteObject.index = index;
+      // const groceriesNameObject = document.getElementsByName('groceries-name')[index];
+      // const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
+      // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
+      // const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
+      // groceriesNameObject.value = groceries[index].name;
+      // groceriesAgeObject.value = groceries[index].age;
+      // groceriesUpdateObject.index = index;
+      // groceriesDeleteObject.index = index;
     }
     console.log('Readed', groceries);
   };
 
 
-  axios.get('http://localhost:3100/api/v1/groceries')
+  axios.get('https://red-javascript-default-rtdb.firebaseio.com/groceries.json')
   .then(successFunction)
   .catch(function (error) {
     console.log(error);
@@ -72,7 +72,7 @@ const groceriesRead = function() {
 
 
 const groceriesDelete = function(index) {
-  const url = 'http://localhost:3100/api/v1/groceries/' + index;
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + index;
 
   axios.delete(url)
   .then(groceriesRead)
@@ -83,7 +83,7 @@ const groceriesDelete = function(index) {
 
 
 const groceriesUpdate = function(index) {
-  const url = 'http://localhost:3100/api/v1/groceries/' + index;
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + index;
   const name = document.getElementsByName('groceries-name')[index].value;
   const age = document.getElementsByName('groceries-age')[index].value;
   const grocery = {
