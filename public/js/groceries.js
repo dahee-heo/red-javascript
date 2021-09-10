@@ -26,8 +26,8 @@ const groceriesCreate = function(form) {
   const groceryNameObject = form['name'];
   const grocery = {
     name: groceryNameObject.value,
-    enter: '',
-    expire: ''
+    enter: moment().format('YYYY-MM-DD'),
+    expire: moment().add(14, 'days').format('YYYY-MM-DD')
   };
    axios.post('https://red-javascript-default-rtdb.firebaseio.com/groceries.json', grocery)
   .then(function(reponse) {
