@@ -55,12 +55,12 @@ const groceriesRead = function() {
       const groceriesEnterObject = document.getElementsByClassName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
       // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
-      // const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
+      const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
       groceriesNameObject.innerHTML = groceries[key].name;
       groceriesEnterObject.innerHTML = groceries[key].enter;
       groceriesExpireObject.value = groceries[key].expire;
       // groceriesUpdateObject.index = index;
-      // groceriesDeleteObject.index = index;
+      groceriesDeleteObject.key = key;
       index += 1;
     }
     console.log('Readed', groceries);
@@ -75,8 +75,11 @@ const groceriesRead = function() {
 };
 
 
-const groceriesDelete = function(index) {
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + index;
+const groceriesDelete = function(key) {
+  if (!window.confirm('삭제하시겠습니까?')) {
+    return;
+  }
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + key + '.json';
 
   axios.delete(url)
   .then(groceriesRead)
