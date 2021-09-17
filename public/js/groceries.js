@@ -49,6 +49,7 @@ const groceriesRead = function() {
     for (let key in groceries) {
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
+      const groceriesMoveObject = document.getElementsByName('groceries-move')[index];
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
       const groceriesEnterObject = document.getElementsByClassName('groceries-enter')[index];
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
@@ -56,6 +57,7 @@ const groceriesRead = function() {
       groceriesNameObject.innerHTML = groceries[key].name;
       groceriesEnterObject.innerHTML = groceries[key].enter;
       groceriesExpireObject.value = groceries[key].expire;
+      groceriesMoveObject.key = key;
       groceriesExpireObject.key = key;
       groceriesDeleteObject.key = key;
       index += 1;
@@ -107,6 +109,31 @@ const groceriesUpdate = function(event, key) {
 const groceriesSet = function() {
   const groceriesSet = JSON.stringify(groceries);
   sessionStorage.setItem('groceries', groceriesSet);
+};
+
+const itemsCreateDelete = function(event, key){
+  if (event.target.checked) {
+    const url = 'https://red-javascript-default-rtdb.firebaseio.com/items.json';
+    const grocery = {
+      [key]: {
+        name: groceries[key].name,
+        enter: groceries[key].enter,
+        expire: event.target.value
+      }
+    }
+
+    axios.patch(url, grocery)
+    .catch(function (error) {
+      console.log(error);
+    });
+  } else {
+    const url = 'https://red-javascript-default-rtdb.firebaseio.com/items/' + key + '.json';
+
+    axios.delete(url)
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 };
 
 groceriesRead();
