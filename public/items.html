@@ -8,6 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
   <link href="./index.css" rel="stylesheet">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script defer src="./js/items.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -40,9 +43,9 @@
     </header>
     <div class="contents">
       <article>
-        <form class="form-inputs">
-          <input type="text" name="q" />
-          <button class="button-search"><span class="material-icons">search</span></button>
+        <form class="form-inputs" onsubmit="itemsCreate(this); return false;">
+          <input type="text" name="name" />
+          <button class="button-create"><span class="material-icons">edit</span></button>
         </form>
         <div class="div-table">
           <table>
@@ -74,197 +77,20 @@
                 <th>Del</th>
               </tr>
             </thead>
+            <tbody id="tag-tbody-parent"></tbody>
+          </table>
+          <table style="display: none;">
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>사과</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
+              <tr id="tag-tbody-child">
+                <td name="items-number"></td>
+                <td name="items-name"></td>
+                <td class="items-enter"></td>
+                <td class="items-expire"></td>
                 <td class="td-update">
                   <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
                 </td>
                 <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>바나나</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>딸기</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>키위</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>사과</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>바나나</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>딸기</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>키위</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>사과</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>바나나</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>딸기</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>키위</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>사과</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>바나나</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>딸기</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>키위</td>
-                <td>2021-01-01</td>
-                <td>2021-02-02</td>
-                <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
-                </td>
-                <td class="td-delete">
-                  <button class="button-delete" onclick=""><span class="material-icons">delete</span></button>
+                  <button class="button-delete" name="items-delete" onclick="itemsDelete(key)"><span class="material-icons">delete</span></button>
                 </td>
               </tr>
             </tbody>
