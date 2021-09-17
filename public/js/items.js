@@ -69,12 +69,14 @@ const itemsRead = function() {
       const itemsEnterObject = document.getElementsByClassName('items-enter')[index];
       const itemsExpireObject = document.getElementsByClassName('items-expire')[index];
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
+      const itemsUpdateObject = document.getElementsByClassName('button-update')[index];
       itemsNumberObject.innerHTML = index+1;
       itemsNameObject.innerHTML = items[key].name;
       itemsEnterObject.innerHTML = items[key].enter;
       itemsExpireObject.innerHTML = items[key].expire;
       itemsExpireObject.key = key;
       itemsDeleteObject.key = key;
+      itemsUpdateObject.key = key;
       index += 1;
     }
     console.log('Readed', items);
@@ -124,6 +126,12 @@ const itemsUpdate = function(event, key) {
 const itemsSet = function() {
   const itemsSet = JSON.stringify(items);
   sessionStorage.setItem('items', itemsSet);
+};
+
+const itemsModalUpdate = function(key){
+  document.getElementsByName('item-name')[0].value = items[key].name;
+  document.getElementsByName('item-enter')[0].value = items[key].enter;
+  document.getElementsByName('item-expire')[0].value = items[key].expire;
 };
 
 itemsRead();

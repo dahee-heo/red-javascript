@@ -87,7 +87,7 @@
                 <td class="items-enter"></td>
                 <td class="items-expire"></td>
                 <td class="td-update">
-                  <button class="button-update" onclick="modalToggle();"><span class="material-icons">edit_note</span></button>
+                  <button class="button-update" onclick="modalToggle(key);"><span class="material-icons">edit_note</span></button>
                 </td>
                 <td class="td-delete">
                   <button class="button-delete" name="items-delete" onclick="itemsDelete(key)"><span class="material-icons">delete</span></button>
@@ -137,8 +137,11 @@
 const accountToggle = function() {
   document.getElementsByClassName('account-menu')[0].classList.toggle('active');
 }
-const modalToggle = function() {
+const modalToggle = function(key) {
   document.body.classList.toggle('o-hidden');
   document.getElementsByClassName('modal-background')[0].classList.toggle('active');
+  if (key) {
+    itemsModalUpdate(key);
+  }
 }
 </script>
