@@ -87,11 +87,13 @@ const groceriesDelete = function(key) {
 
 
 const groceriesUpdate = function(event, key) {
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + key + '.json';
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries.json';
   const grocery = {
-    name: groceries[key].name,
-    enter: groceries[key].enter,
-    expire: event.target.value
+    [key]: {
+      name: groceries[key].name,
+      enter: groceries[key].enter,
+      expire: event.target.value
+    }
   }
 
   axios.patch(url, grocery)
