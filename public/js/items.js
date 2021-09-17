@@ -58,6 +58,10 @@ const itemsRead = function() {
     tagDivParent.innerHTML = '';
     let index = 0;
     for (let key in items) {
+      const condition = !q || items[key].name.indexOf(q) >= 0;
+      if (!condition) {
+        continue;
+      }
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
       const itemsNumberObject = document.getElementsByName('items-number')[index];
