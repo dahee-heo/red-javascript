@@ -118,7 +118,7 @@ const itemsCreateDelete = function(event, key){
       [key]: {
         name: groceries[key].name,
         enter: groceries[key].enter,
-        expire: event.target.value
+        expire: groceries[key].expire
       }
     }
 

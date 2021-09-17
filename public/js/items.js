@@ -1,3 +1,14 @@
+const queryString = new URLSearchParams(window.location.search);
+const q = queryString.get('q');
+
+document.getElementsByName('q')[0].value = q;
+// const inputHiddens = queryString.getAll('input-hidden');
+// const inputHidden = inputHiddens[0];
+
+// const inputTextObjects = document.getElementsByName('input-text');
+// const inputTextObject = inputTextObjects[0];
+
+
 let items = [];
 
 const ajax = function(method, url, data, callback){
