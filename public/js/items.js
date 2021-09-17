@@ -105,13 +105,13 @@ const itemsDelete = function(key) {
 };
 
 
-const itemsUpdate = function(event, key) {
+const itemsUpdate = function(key) {
   const url = 'https://red-javascript-default-rtdb.firebaseio.com/items.json';
   const item = {
     [key]: {
-      name: items[key].name,
-      enter: items[key].enter,
-      expire: event.target.value
+      name: document.getElementsByName('item-name')[0].value,
+      enter: document.getElementsByName('item-enter')[0].value,
+      expire: document.getElementsByName('item-expire')[0].value
     }
   }
 
@@ -132,6 +132,8 @@ const itemsModalUpdate = function(key){
   document.getElementsByName('item-name')[0].value = items[key].name;
   document.getElementsByName('item-enter')[0].value = items[key].enter;
   document.getElementsByName('item-expire')[0].value = items[key].expire;
+  const itemsUpdateObjects = document.getElementsByClassName('button-update');
+  itemsUpdateObjects[itemsUpdateObjects.length-1].key = key;
 };
 
 itemsRead();
