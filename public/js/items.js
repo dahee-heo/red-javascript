@@ -6,8 +6,8 @@ document.getElementsByName('q')[0].value = q;
 
 // const inputTextObjects = document.getElementsByName('input-text');
 // const inputTextObject = inputTextObjects[0];
-const orderbyName = queryString.get('orderbyName');
-const orderbyType = queryString.get('orderbyType');
+const orderbyName = queryString.get('orderbyName') || 'expire';
+const orderbyType = queryString.get('orderbyType') || 'asc';
 document.getElementById(orderbyName + '-' + orderbyType).classList.add('active');
 
 let items = [];
