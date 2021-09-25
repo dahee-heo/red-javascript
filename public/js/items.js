@@ -1,13 +1,14 @@
 const queryString = new URLSearchParams(window.location.search);
 const q = queryString.get('q');
-
 document.getElementsByName('q')[0].value = q;
 // const inputHiddens = queryString.getAll('input-hidden');
 // const inputHidden = inputHiddens[0];
 
 // const inputTextObjects = document.getElementsByName('input-text');
 // const inputTextObject = inputTextObjects[0];
-
+const orderbyName = queryString.get('orderbyName');
+const orderbyType = queryString.get('orderbyType');
+document.getElementById(orderbyName + '-' + orderbyType).classList.add('active');
 
 let items = [];
 
