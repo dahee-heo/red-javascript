@@ -57,8 +57,12 @@ const itemsRead = function() {
     const tagDivParent = document.getElementById('tag-tbody-parent');
     const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
-    let index = 0;
     for (let key in items) {
+      items[key].key = key;
+    }
+    const itemsOrdered = _.orderBy(items, [orderbyName], [orderbyType]);
+    for (let index in itemsOrdered) {
+      const key = itemsOrdered[index].key;
       const condition = !q || items[key].name.indexOf(q) >= 0;
       if (!condition) {
         continue;
@@ -71,14 +75,13 @@ const itemsRead = function() {
       const itemsExpireObject = document.getElementsByClassName('items-expire')[index];
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
       const itemsUpdateObject = document.getElementsByClassName('button-update')[index];
-      itemsNumberObject.innerHTML = index+1;
+      itemsNumberObject.innerHTML = Number(index)+1;
       itemsNameObject.innerHTML = items[key].name;
       itemsEnterObject.innerHTML = items[key].enter;
       itemsExpireObject.innerHTML = items[key].expire;
       itemsExpireObject.key = key;
       itemsDeleteObject.key = key;
       itemsUpdateObject.key = key;
-      index += 1;
     }
     console.log('Readed', items);
   };
