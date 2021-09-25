@@ -1,24 +1,13 @@
 let groceries = [];
 
-const ajax = function(method, url, data, callback){
-  const xhrObject = new XMLHttpRequest();
-  xhrObject.onreadystatechange = function() {
-    if (xhrObject.readyState !== 4) return;
-    if (xhrObject.status === 200) {
-      callback(xhrObject);
-    } else {
-      const error = {
-        status: xhrObject.status,
-        statusText: xhrObject.statusText,
-        responseText: xhrObject.responseText
-      }
-      console.error(error);
-    }
-  };
-  xhrObject.open(method, url);
-  xhrObject.setRequestHeader('Content-Type', 'application/json');
-  xhrObject.send(JSON.stringify(data));
-};
+const promises = [];
+promises[0] = new Promise(function(resolve, reject) {
+  axios.get('https://red-javascript-default-rtdb.firebaseio.com/items.json').then(function(response) {
+    resolve(response.data);
+  }).catch(function(error) {
+    reject(error);
+  })
+})
 
 const groceriesCreate = function(form) {
   const groceryNameObject = form['name'];
@@ -40,8 +29,8 @@ const groceriesCreate = function(form) {
 
 
 const groceriesRead = function() {
-  const successFunction = function(reponse) {
-    groceries = reponse.data;
+  const successFunction = function(data) {
+    groceries = data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
     const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
@@ -60,17 +49,38 @@ const groceriesRead = function() {
       groceriesMoveObject.key = key;
       groceriesExpireObject.key = key;
       groceriesDeleteObject.key = key;
+      if (groceries[key].hasItem) {
+        groceriesMoveObject.checked = true;
+      }
       index += 1;
     }
     console.log('Readed', groceries);
   };
 
-
-  axios.get('https://red-javascript-default-rtdb.firebaseio.com/groceries.json')
-  .then(successFunction)
-  .catch(function (error) {
-    console.log(error);
-  });
+  promises[1] = new Promise(function(resolve, reject) {
+    axios.get('https://red-javascript-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+      resolve(response.data);
+    }).catch(function(error) {
+      reject(error);
+    })
+  })
+  Promise.all(promises).then(function(result) {
+    const groceries = result[1];
+    const items = result[0];
+    for (let key1 in groceries) {
+      const grocery = groceries[key1];
+      for (let key0 in items) {
+        // const item = items[key0];
+        if (key1 === key0) {
+          grocery.hasItem = true;
+        }
+      }
+    }
+    console.log(result);
+    successFunction(groceries);
+  }).catch(function(error) {
+    console.error(error);
+  })
 };
 
 
