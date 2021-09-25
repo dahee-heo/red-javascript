@@ -1,0 +1,42 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  // const promise1 = new Promise(function(resolve, reject) {
+  // resolve('Resolved promise1');
+  // // reject('Rejected promise1');
+  // })
+  // const promise2 = new Promise(function(resolve, reject) {
+  //   resolve('Resolved promise2');
+  //   // reject('Rejected promise2');
+  // })
+  // const promise3 = new Promise(function(resolve, reject) {
+  //   resolve('Resolved promise3');
+  //   // reject('Rejected promise3');
+  // })
+  // Promise.all([promise1, promise2, promise3]).then(function(result) {
+  //   console.log(result);
+  // }).catch(function(error) {
+  //   console.error(error);
+  // })
+
+  const promises = [];
+  promises[0] = new Promise(function(resolve, reject) {
+    axios.get('http://localhost:3100/api/v1/members').then(function(response) {
+      resolve(response.data);
+    }).catch(function(error) {
+      reject(error);
+    })
+  })
+  promises[1] = new Promise(function(resolve, reject) {
+    axios.get('http://localhost:3100/api/v1/members').then(function(response) {
+      resolve(response.data);
+    }).catch(function(error) {
+      reject(error);
+    })
+  })
+  Promise.all(promises).then(function(result) {
+    console.log(result);
+  }).catch(function(error) {
+    console.error(error);
+  })
+
+</script>
