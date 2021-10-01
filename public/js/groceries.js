@@ -23,7 +23,7 @@ const groceriesCreate = function(form) {
     enter: moment().format('YYYY-MM-DD'),
     expire: moment().add(14, 'days').format('YYYY-MM-DD')
   };
-   axios.post('https://red-javascript-default-rtdb.firebaseio.com/groceries.json', grocery)
+   axios.post('https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries.json', grocery)
   .then(function(reponse) {
     groceryNameObject.value = '';
     groceriesRead();
@@ -73,8 +73,9 @@ const groceriesRead = function() {
     console.log('Readed', groceries);
   };
 
+
   promises[1] = new Promise(function(resolve, reject) {
-    axios.get('https://red-javascript-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+    axios.get('https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries.json').then(function(response) {
       resolve(response.data);
     }).catch(function(error) {
       reject(error);
@@ -104,7 +105,7 @@ const groceriesDelete = function(key) {
   if (!window.confirm('삭제하시겠습니까?')) {
     return;
   }
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries/' + key + '.json';
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries/' + key + '.json';
 
   axios.delete(url)
   .then(groceriesRead)
@@ -115,7 +116,7 @@ const groceriesDelete = function(key) {
 
 
 const groceriesUpdate = function(event, key) {
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/groceries.json';
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries.json';
   const grocery = {
     [key]: {
       name: groceries[key].name,
@@ -162,4 +163,4 @@ const itemsCreateDelete = function(event, key){
   }
 };
 
-groceriesRead();
+// groceriesRead();
