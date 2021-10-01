@@ -1,3 +1,10 @@
+const queryString = new URLSearchParams(window.location.search);
+// const q = queryString.get('q');
+// document.getElementsByName('q')[0].value = q;
+const orderbyName = queryString.get('orderbyName') || 'expire';
+const orderbyType = queryString.get('orderbyType') || 'asc';
+document.getElementById(orderbyName + '-' + orderbyType).classList.add('active');
+
 let groceries = [];
 
 const promises = [];
@@ -34,8 +41,18 @@ const groceriesRead = function() {
     const tagDivParent = document.getElementById('tag-tbody-parent');
     const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
+
     let index = 0;
     for (let key in groceries) {
+      groceries[key].key = key;
+    }
+    const groceriesOrdered = _.orderBy(groceries, [orderbyName], [orderbyType]);
+    for (let index in groceriesOrdered) {
+      const key = groceriesOrdered[index].key;
+      // const condition = !q || groceries[key].name.indexOf(q) >= 0;
+      // if (!condition) {
+      //   continue;
+      // }
       const newDivChild = tagDivChild.cloneNode(true);
       tagDivParent.appendChild(newDivChild);
       const groceriesMoveObject = document.getElementsByName('groceries-move')[index];
@@ -52,7 +69,6 @@ const groceriesRead = function() {
       if (groceries[key].hasItem) {
         groceriesMoveObject.checked = true;
       }
-      index += 1;
     }
     console.log('Readed', groceries);
   };
