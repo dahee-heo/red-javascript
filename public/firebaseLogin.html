@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Login</title>
+  <script defer src="/__/firebase/9.1.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.1.1/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="./js/firebaseLogin.js"></script>
+</head>
+<body>
+  <div id="login-display"></div>
+  <div>
+    <h2>Google Logout</h2>
+    <button onclick="googleLogout()">Google Logout</button>
+  </div>
+  <div>
+    <h2>Google Login</h2>
+    <button onclick="googleLogin()">Google Login</button>
+  </div>
+  <div>
+    <h2>Email Signup</h2>
+    <form onsubmit="emailSignup(this); return false;">
+      <input type="email" name="signup-email">
+      <input type="password" name="signup-password">
+      <input type="submit" value="Email Signup">
+    </form>
+  </div>
+  <div>
+    <h2>Email Signin</h2>
+    <form onsubmit="emailSignin(this); return false;">
+      <input type="email" name="signin-email">
+      <input type="password" name="signin-password">
+      <input type="submit" value="Email Signin">
+    </form>
+  </div>
+</body>
+</html>
