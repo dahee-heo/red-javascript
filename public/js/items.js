@@ -39,7 +39,7 @@ const itemsCreate = function(form) {
     enter: moment().format('YYYY-MM-DD'),
     expire: moment().add(14, 'days').format('YYYY-MM-DD')
   };
-   axios.post('https://red-javascript-default-rtdb.firebaseio.com/items.json', item)
+   axios.post('https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json', item)
   .then(function(reponse) {
     itemNameObject.value = '';
     itemsRead();
@@ -87,7 +87,7 @@ const itemsRead = function() {
   };
 
 
-  axios.get('https://red-javascript-default-rtdb.firebaseio.com/items.json')
+  axios.get('https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json')
   .then(successFunction)
   .catch(function (error) {
     console.log(error);
@@ -99,7 +99,7 @@ const itemsDelete = function(key) {
   if (!window.confirm('삭제하시겠습니까?')) {
     return;
   }
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/items/' + key + '.json';
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items/' + key + '.json';
 
   axios.delete(url)
   .then(itemsRead)
@@ -110,7 +110,7 @@ const itemsDelete = function(key) {
 
 
 const itemsUpdate = function(key) {
-  const url = 'https://red-javascript-default-rtdb.firebaseio.com/items.json';
+  const url = 'https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json';
   const item = {
     [key]: {
       name: document.getElementsByName('item-name')[0].value,
@@ -142,4 +142,4 @@ const itemsModalUpdate = function(key){
   itemsUpdateObjects[itemsUpdateObjects.length-1].key = key;
 };
 
-itemsRead();
+// itemsRead();

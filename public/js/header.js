@@ -9,7 +9,12 @@ firebase.auth().onAuthStateChanged(function(_firebaseUser) {
     loginName.style.display = 'block';
     loginName.innerHTML = 'Hello ' + _firebaseUser.displayName + '!';
     document.getElementById('login-logout').style.display = 'block';
-    groceriesRead();
+    if (document.location.pathname === '/groceries.html') {
+      promisesItems();
+      groceriesRead();
+    } else if (document.location.pathname === '/items.html') {
+      itemsRead();
+    }
   } else {
     firebaseUser = null
     document.getElementById('login-guest').style.display = 'block';

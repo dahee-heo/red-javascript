@@ -8,13 +8,16 @@ document.getElementById(orderbyName + '-' + orderbyType).classList.add('active')
 let groceries = [];
 
 const promises = [];
-promises[0] = new Promise(function(resolve, reject) {
-  axios.get('https://red-javascript-default-rtdb.firebaseio.com/items.json').then(function(response) {
-    resolve(response.data);
-  }).catch(function(error) {
-    reject(error);
+
+const promisesItems = function() {
+  promises[0] = new Promise(function(resolve, reject) {
+    axios.get('https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json').then(function(response) {
+      resolve(response.data);
+    }).catch(function(error) {
+      reject(error);
+    })
   })
-})
+};
 
 const groceriesCreate = function(form) {
   const groceryNameObject = form['name'];
@@ -140,7 +143,7 @@ const groceriesSet = function() {
 
 const itemsCreateDelete = function(event, key){
   if (event.target.checked) {
-    const url = 'https://red-javascript-default-rtdb.firebaseio.com/items.json';
+    const url = 'https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json';
     const grocery = {
       [key]: {
         name: groceries[key].name,
