@@ -15,6 +15,7 @@ firebase.auth().onAuthStateChanged(function(_firebaseUser) {
     } else if (document.location.pathname === '/items.html') {
       itemsRead();
     }
+    itemsExpiredCount();
   } else {
     firebaseUser = null
     document.getElementById('login-guest').style.display = 'block';
@@ -23,6 +24,23 @@ firebase.auth().onAuthStateChanged(function(_firebaseUser) {
     document.getElementById('login-logout').style.display = 'none';
   }
 });
+
+const itemsExpiredCount = function(){
+  axios.get('https://red-javascript-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json')
+  .then(function(response) {
+    items = response.data;
+    let count = 0;
+    for (let key in items) {
+      if (items[key].expire <= moment().add(-1, 'days').format('YYYY-MM-DD')) {
+        count++;
+      }
+    }
+    document.getElementById('menu-items-counter').innerHTML = count;
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
 
 const googleLogout = function() {
   firebase.auth().signOut();

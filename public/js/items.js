@@ -52,8 +52,8 @@ const itemsCreate = function(form) {
 
 
 const itemsRead = function() {
-  const successFunction = function(reponse) {
-    items = reponse.data;
+  const successFunction = function(response) {
+    items = response.data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
     const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
@@ -125,7 +125,8 @@ const itemsUpdate = function(key) {
     console.log(error);
   }).finally(function () {
     modalToggle();
-  })
+    itemsExpiredCount();
+  }) 
 };
 
 
