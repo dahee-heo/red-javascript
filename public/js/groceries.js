@@ -42,8 +42,8 @@ const groceriesRead = function() {
   const successFunction = function(data) {
     groceries = data;
     const tagDivParent = document.getElementById('tag-tbody-parent');
-    const tagDivChild = document.getElementById('tag-tbody-child');
     tagDivParent.innerHTML = '';
+    const tagDivChild = document.getElementById('tag-tbody-child');
 
     let index = 0;
     for (let key in groceries) {
@@ -69,9 +69,7 @@ const groceriesRead = function() {
       groceriesMoveObject.key = key;
       groceriesExpireObject.key = key;
       groceriesDeleteObject.key = key;
-      if (groceries[key].hasItem) {
-        groceriesMoveObject.checked = true;
-      }
+      groceriesMoveObject.checked = groceries[key].hasItem;
     }
     console.log('Readed', groceries);
   };
@@ -89,6 +87,7 @@ const groceriesRead = function() {
     const items = result[0];
     for (let key1 in groceries) {
       const grocery = groceries[key1];
+      grocery.hasItem = false;
       for (let key0 in items) {
         // const item = items[key0];
         if (key1 === key0) {
