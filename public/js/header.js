@@ -7,7 +7,7 @@ firebase.auth().onAuthStateChanged(function(_firebaseUser) {
     document.getElementById('login-login').style.display = 'none';
     const loginName = document.getElementById('login-name');
     loginName.style.display = 'block';
-    loginName.innerHTML = 'Hello ' + _firebaseUser.displayName + '!';
+    loginName.innerHTML = 'Hello ' + (_firebaseUser.displayName || _firebaseUser.email) + '!';
     document.getElementById('login-logout').style.display = 'block';
     if (document.location.pathname === '/groceries.html') {
       promisesItems();
@@ -31,4 +31,11 @@ const googleLogout = function() {
 const googleLogin = function() {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider);
+};
+
+const guestLogin = function(){
+  firebase.auth().signInWithEmailAndPassword('guest@red-javascript.web.app', 'guestguest').catch(function(error) {
+    console.error(error);
+    alert(error.message);
+  });
 };
