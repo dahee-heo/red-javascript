@@ -8,6 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
   <link href="./index.css" rel="stylesheet">
+  <script defer src="/__/firebase/9.1.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.1.1/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="./js/header.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -30,10 +35,10 @@
         <a href="#!" id="menu-a-account" onclick="accountToggle(); return false;">
           <span class="material-icons-outlined">account_circle</span>
           <ul class="account-menu">
-            <li>Guest</li>
-            <li>Login</li>
-            <li>Hello 홍길동!</li>
-            <li>Logout</li>
+            <li id="login-guest" onclick="guestLogin()">Guest</li>
+            <li id="login-login" onclick="googleLogin()">Login</li>
+            <li id="login-name"></li>
+            <li id="login-logout" onclick="googleLogout()">Logout</li>
           </ul>
         </a>
       </div>
